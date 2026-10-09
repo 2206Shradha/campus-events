@@ -1,0 +1,95 @@
+/* ===== Soft colorful background ===== */
+html { background: #f6f3ff; }
+
+body {
+  background:
+    radial-gradient(circle at 12% 8%,  rgba(196, 181, 253, 0.45) 0, transparent 38%),
+    radial-gradient(circle at 88% 12%, rgba(251, 191, 205, 0.40) 0, transparent 36%),
+    radial-gradient(circle at 80% 85%, rgba(167, 230, 215, 0.40) 0, transparent 40%),
+    radial-gradient(circle at 10% 90%, rgba(253, 224, 171, 0.35) 0, transparent 38%),
+    #f8f6ff !important;
+  background-attachment: fixed !important;
+}
+
+/* ===== Floating mascot ===== */
+#mascot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 72px;
+  height: 72px;
+  z-index: 9999;
+  cursor: grab;
+  touch-action: none;       /* lets touch-dragging work on phones */
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+}
+#mascot.dragging { cursor: grabbing; }
+
+.mascot-bob {
+  width: 100%;
+  height: 100%;
+  animation: mascot-bob 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 6px 6px rgba(90, 70, 140, 0.25));
+  transition: transform 0.15s ease;
+}
+#mascot:hover .mascot-bob { transform: scale(1.08); }
+#mascot.dragging .mascot-bob {
+  animation: mascot-wiggle 0.35s ease-in-out infinite;
+  transform: scale(1.15);
+}
+#mascot.hop .mascot-bob { animation: mascot-hop 0.5s ease-out; }
+
+.mascot-bob svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+.mascot-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mascot-blink 4s infinite;
+}
+.mascot-happy-eyes { display: none; }
+#mascot.dragging .mascot-eyes,
+#mascot.hop .mascot-eyes { display: none; }
+#mascot.dragging .mascot-happy-eyes,
+#mascot.hop .mascot-happy-eyes { display: inline; }
+
+.mascot-heart {
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  font-size: 18px;
+  pointer-events: none;
+  animation: mascot-heart 0.9s ease-out forwards;
+}
+
+@keyframes mascot-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+@keyframes mascot-wiggle {
+  0%, 100% { rotate: -6deg; }
+  50%      { rotate: 6deg; }
+}
+@keyframes mascot-hop {
+  0%   { transform: translateY(0) scale(1, 1); }
+  30%  { transform: translateY(-22px) scale(0.92, 1.1); }
+  60%  { transform: translateY(0) scale(1.1, 0.9); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes mascot-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%           { transform: scaleY(0.1); }
+}
+@keyframes mascot-heart {
+  0%   { opacity: 0; transform: translate(-50%, 0) scale(0.5); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -34px) scale(1.2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot-bob, .mascot-eyes { animation: none; }
+}
+@media (max-width: 600px) {
+  #mascot { width: 56px; height: 56px; }
+}

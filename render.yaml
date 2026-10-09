@@ -1,0 +1,22 @@
+# One-click deploy on Render (https://render.com): New > Blueprint > pick this repo.
+services:
+  - type: web
+    name: campus-events
+    runtime: node
+    plan: free
+    buildCommand: echo "no build step"
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: admin@srmist.test
+      - key: ADMIN_PASSWORD
+        value: Admin@12345   # change after first deploy, or set it in the dashboard
+      - key: SEED_DEMO
+        value: "true"
